@@ -17,9 +17,15 @@ export default class IndecisionApp extends React.Component {
     };
 
     handleDeleteLink = (optionToRemove) => {
-        this.setState((prevState) => ({
-            options: prevState.options.filter((option) => optionToRemove !== option)
-        }))
+        this.deleteLink().then(() =>
+            this.setState((prevState) => ({
+                links: prevState.links.filter((link) => linkToRemove !== link)
+            }))
+        )
+    };
+
+    deleteLink = (link) => {
+        return axios.delete(`http://localhost:8888/link/${link._id}`);
     };
 
     createLink = ({ title, url }) => {
