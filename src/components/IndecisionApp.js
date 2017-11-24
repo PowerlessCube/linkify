@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-// import AddOption from './AddOption';
 import AddLink from './AddLink';
 import Header from './Header';
-import Options from './Options';
+import Links from './Links';
 
 export default class IndecisionApp extends React.Component {
     state = {
@@ -13,11 +12,11 @@ export default class IndecisionApp extends React.Component {
         selectedOption: undefined
     };
 
-    handleDeleteOptions = () => {
+    handleDeleteLinks = () => {
         this.setState(() => ({options: []}));
     };
 
-    handleDeleteOption = (optionToRemove) => {
+    handleDeleteLink = (optionToRemove) => {
         this.setState((prevState) => ({
             options: prevState.options.filter((option) => optionToRemove !== option)
         }))
@@ -82,10 +81,11 @@ export default class IndecisionApp extends React.Component {
                 <Header />
                 <div className='container'>
                     <div className='widget'>
-                        <Options
-                            options={this.state.options}
-                            handleDeleteOptions={this.handleDeleteOptions}
-                            handleDeleteOption={this.handleDeleteOption}
+
+                        <Links
+                            links={this.state.links}
+                            handleDeleteLinks={this.handleDeleteLinks}
+                            handleDeleteLink={this.handleDeleteLink}
                         />
 
                         <AddLink
