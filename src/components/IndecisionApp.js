@@ -1,12 +1,14 @@
 import React from 'react';
 
-import AddOption from './AddOption';
+// import AddOption from './AddOption';
+import AddLink from './AddLink';
 import Header from './Header';
 import Options from './Options';
 
 export default class IndecisionApp extends React.Component {
     state = {
         options: [],
+        links: [],
         selectedOption: undefined
     };
 
@@ -20,15 +22,22 @@ export default class IndecisionApp extends React.Component {
         }))
     };
 
-    handleAddLink = (option) => {
-        if (!option) {
-            return 'Enter valid value to add item'
-        } else if (this.state.options.indexOf(option) > -1) {
-            return 'This option already exists';
-        } 
+    handleAddLink = (link) => {
+        const { title, url } = link;
+
+        if (!title) {
+            return 'Enter a valid title'
+        }
+        if (!url) {
+            return 'Enter a valid url'
+        }
+
+        if (this.state.links.indexOf(link) > -1) {
+            return 'This link already exists';
+        }
 
         this.setState((prevState) => ({
-            options: prevState.options.concat(option)
+            links: prevState.links.concat(link)
         }));
     }
 
@@ -46,14 +55,14 @@ export default class IndecisionApp extends React.Component {
         } catch (e) {
             // Do nothing
         }
-        
+
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.options.length !== this.state.options.length) {
             const json = JSON.stringify(this.state.options);
             localStorage.setItem('options', json);
-            console.log('Saving data'); 
+            console.log('Saving data');
         }
     }
 
@@ -62,22 +71,18 @@ export default class IndecisionApp extends React.Component {
     }
 
     render() {
-        const subTitle = "Put Your life in the hands of a computer.";
-
         return (
             <div>
-                <Header 
-                    subTitle={subTitle} 
-                />
+                <Header />
                 <div className='container'>
                     <div className='widget'>
-                        <Options 
+                        <Options
                             options={this.state.options}
-                            handleDeleteOptions={this.handleDeleteOptions} 
+                            handleDeleteOptions={this.handleDeleteOptions}
                             handleDeleteOption={this.handleDeleteOption}
                         />
-                        <AddOption 
-                            handleAddOption={this.handleAddOption}
+                        <AddLink
+                            handleAddLink={this.handleAddLink}
                         />
                     </div>
                 </div>
