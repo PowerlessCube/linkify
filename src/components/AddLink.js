@@ -11,9 +11,7 @@ export default class AddLink extends React.Component {
     const title = e.target.elements.title.value.trim();
     const url = e.target.elements.url.value.trim();
 
-    const link = { title, url };
-    const error = this.props.handleAddLink(link);
-
+    const error = this.props.handleAddLink({ title, url });
     this.setState(() => ({ error }));
 
     if (!error) {

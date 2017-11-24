@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 // import AddOption from './AddOption';
 import AddLink from './AddLink';
@@ -22,23 +23,28 @@ export default class IndecisionApp extends React.Component {
         }))
     };
 
-    handleAddLink = (link) => {
-        const { title, url } = link;
+    createLink = ({ title, url }) => {
+        return axios.post('http://localhost:8888/link', { title, url });
+    };
 
+    handleAddLink = ({ title, url }) => {
         if (!title) {
-            return 'Enter a valid title'
+          return 'Enter a valid title'
         }
         if (!url) {
-            return 'Enter a valid url'
+          return 'Enter a valid url'
         }
+
+        const link = { title, url }
 
         if (this.state.links.indexOf(link) > -1) {
-            return 'This link already exists';
+          return 'This link already exists';
         }
-
-        this.setState((prevState) => ({
-            links: prevState.links.concat(link)
-        }));
+        this.createLink({ title, url })
+            .then(res => this.setState((prevState) => ({
+                    links: prevState.links.concat(link)
+                }))
+            )
     }
 
     handleClearSelectedOption = () => {
@@ -81,6 +87,7 @@ export default class IndecisionApp extends React.Component {
                             handleDeleteOptions={this.handleDeleteOptions}
                             handleDeleteOption={this.handleDeleteOption}
                         />
+
                         <AddLink
                             handleAddLink={this.handleAddLink}
                         />
