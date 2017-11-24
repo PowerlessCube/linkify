@@ -10,7 +10,8 @@ const Header = (props) => (
     );
 
 Header.defaultProps = {
-    title: 'Indecision'
+    title: 'Linkify',
+    subTitle: 'Escrivo link sharing, as it should be'
 }
 
 export default Header;
