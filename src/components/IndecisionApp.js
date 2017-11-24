@@ -41,7 +41,7 @@ export default class IndecisionApp extends React.Component {
         }
         this.createLink({ title, url })
             .then(res => this.setState((prevState) => ({
-                    links: prevState.links.concat(link)
+                    links: prevState.links.concat(res.data)
                 }))
             )
     }
@@ -87,7 +87,6 @@ export default class IndecisionApp extends React.Component {
                             handleDeleteLinks={this.handleDeleteLinks}
                             handleDeleteLink={this.handleDeleteLink}
                         />
-
                         <AddLink
                             handleAddLink={this.handleAddLink}
                         />
