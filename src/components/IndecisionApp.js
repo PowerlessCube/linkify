@@ -2,9 +2,7 @@ import React from 'react';
 
 import AddOption from './AddOption';
 import Header from './Header';
-import Action from './Action';
 import Options from './Options';
-import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
     state = {
@@ -21,15 +19,8 @@ export default class IndecisionApp extends React.Component {
             options: prevState.options.filter((option) => optionToRemove !== option)
         }))
     };
-    
-    handlePick = () => {
-        // Use setState to set selectedOption
-        const randomNum = Math.floor(Math.random() * this.state.options.length);
-        const selectedOption = this.state.options[randomNum];
-        this.setState(() => ({ selectedOption }));
-    };
 
-    handleAddOption = (option) => {
+    handleAddLink = (option) => {
         if (!option) {
             return 'Enter valid value to add item'
         } else if (this.state.options.indexOf(option) > -1) {
@@ -79,10 +70,6 @@ export default class IndecisionApp extends React.Component {
                     subTitle={subTitle} 
                 />
                 <div className='container'>
-                    <Action 
-                        hasOptions={this.state.options.length > 0}
-                        handlePick={this.handlePick}
-                    />
                     <div className='widget'>
                         <Options 
                             options={this.state.options}
@@ -94,10 +81,6 @@ export default class IndecisionApp extends React.Component {
                         />
                     </div>
                 </div>
-                <OptionModal 
-                    selectedOption={this.state.selectedOption}
-                    handleClearSelectedOption={this.handleClearSelectedOption}
-                />
             </div>
         );
     }
